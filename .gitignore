@@ -3,5 +3,11 @@
 node_modules
 dist
 coverage/
-yarn.lock
 .idea
+
+# Depedencies lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock
+bun.lockb

@@ -4,11 +4,11 @@ Easy route grouping for Express JS with resource api model.
 
 ## Requirement
 
-* Express JS 5
+- Express JS 5
 
 ## Installation
 
-* Install the package
+- Install the package
 
 ```bash
 yarn add @codenameryuu/express-group-route
@@ -36,8 +36,8 @@ const auth = (req, res, next) => {
   next();
 };
 
-root.group('/api', m1, m2, api => {
-  api.group('/v1', auth, v1 => {
+root.group('/api', m1, m2, (api) => {
+  api.group('/v1', auth, (v1) => {
     v1.get('/users', (req, res) => {
       res.send('Users');
     });
@@ -52,8 +52,8 @@ app.use(root.getRouter());
 Add middleware to the group without adding a route.
 
 ```typescript
-root.group('/api', m1, m2, api => {
-  api.group(auth, perm, api => {
+root.group('/api', m1, m2, (api) => {
+  api.group(auth, perm, (api) => {
     api.get('/users', (req, res) => {
       res.send('Users');
     });
@@ -104,12 +104,12 @@ class UserController implements IResource {
   }
 }
 
-root.group('/api', m1, m2, api => {
-  api.group('/v1/users', v1Auth, v1 => {
+root.group('/api', m1, m2, (api) => {
+  api.group('/v1/users', v1Auth, (v1) => {
     v1.resource(new UserController());
   });
 
-  api.group('/v2/users', v2Auth, v2 => {
+  api.group('/v2/users', v2Auth, (v2) => {
     v2.resource(new UserController());
   });
 });
@@ -184,20 +184,20 @@ We added the middlewares to the `index` and `destroy` routes. We also added the 
 
 | Name          | Type      | Required | Description               |
 | ------------- | --------- | -------- | ------------------------- |
-| `path` | string    | false    | The path of the resource. |
-| `handlers` | object    | true     | The controller object.    |
+| `path`        | string    | false    | The path of the resource. |
+| `handlers`    | object    | true     | The controller object.    |
 | `middlewares` | Endpoints | false    | The middlewares object.   |
-| `parameters` | object    | false    | The parameters object.    |
+| `parameters`  | object    | false    | The parameters object.    |
 
 ### Endpoints
 
 | Name      | Type   | Description        |
 | --------- | ------ | ------------------ |
-| `index` | GET    | List all resources |
-| `show` | GET    | Show a resource    |
-| `store` | POST   | Create a resource  |
-| `update` | PUT    | Update a resource  |
-| `patch` | PATCH  | Patch a resource   |
+| `index`   | GET    | List all resources |
+| `show`    | GET    | Show a resource    |
+| `store`   | POST   | Create a resource  |
+| `update`  | PUT    | Update a resource  |
+| `patch`   | PATCH  | Patch a resource   |
 | `destroy` | DELETE | Delete a resource  |
 
 > Note: This resource configuration model is inspired by the [Laravel](https://laravel.com/docs/8.x/controllers#resource-controllers) PHP framework.
